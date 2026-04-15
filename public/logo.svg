@@ -1,0 +1,42 @@
+<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .glass { fill: #10121A; fill-opacity: 0.5; stroke-width: 1; }
+    .wire-front { stroke: #00E5FF; stroke-width: 0.8; }
+    .wire-back { stroke: #B026FF; stroke-width: 0.6; opacity: 0.7; }
+    .node { fill: #00E5FF; }
+  </style>
+
+  <!-- Hexagon Outer Shape -->
+  <polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7" class="glass wire-back" />
+  
+  <!-- Back Edges -->
+  <line x1="3.34" y1="7" x2="16.3" y2="10" class="wire-back" />
+  <line x1="12" y1="2" x2="16.3" y2="10" class="wire-back" />
+  <line x1="20.66" y1="17" x2="16.3" y2="10" class="wire-back" />
+
+  <!-- Front Central Triangle Base -->
+  <polygon points="7.7,14 16.3,14 12,22" class="glass wire-front" />
+  
+  <!-- Front Top Triangle -->
+  <polygon points="12,2 7.7,14 16.3,14" class="glass wire-front" />
+  
+  <!-- Left Side Triangle -->
+  <polygon points="3.34,7 7.7,14 12,2" class="glass wire-front" />
+  <polygon points="3.34,17 12,22 7.7,14" class="glass wire-front" />
+
+  <!-- Right Side Triangles -->
+  <polygon points="20.66,7 16.3,14 12,2" class="glass wire-front" />
+  <polygon points="20.66,17 12,22 16.3,14" class="glass wire-front" />
+
+  <!-- Outer Points -->
+  <circle cx="12" cy="2" r="1.5" class="node" />
+  <circle cx="20.66" cy="7" r="1" class="node" />
+  <circle cx="20.66" cy="17" r="1" class="node" />
+  <circle cx="12" cy="22" r="1.5" class="node" />
+  <circle cx="3.34" cy="17" r="1" class="node" />
+  <circle cx="3.34" cy="7" r="1" class="node" />
+
+  <!-- Inner Points -->
+  <circle cx="7.7" cy="14" r="1.5" class="node" fill="#B026FF" />
+  <circle cx="16.3" cy="14" r="1.5" class="node" fill="#B026FF" />
+</svg>
