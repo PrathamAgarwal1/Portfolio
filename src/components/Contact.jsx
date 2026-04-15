@@ -1,114 +1,51 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
-import { SiLeetcode } from 'react-icons/si';
-
-const socials = [
-  {
-    name: 'Email',
-    icon: FaEnvelope,
-    href: 'mailto:prathamagarwalvikas@gmail.com',
-    label: 'prathamagarwalvikas@gmail.com',
-  },
-  {
-    name: 'GitHub',
-    icon: FaGithub,
-    href: 'https://github.com/PrathamAgarwal1',
-    label: 'PrathamAgarwal1',
-  },
-  {
-    name: 'LinkedIn',
-    icon: FaLinkedinIn,
-    href: 'https://www.linkedin.com/in/pratham-agarwal1/',
-    label: 'pratham-agarwal1',
-  },
-  {
-    name: 'LeetCode',
-    icon: SiLeetcode,
-    href: 'https://leetcode.com/u/Pratham_Agarwal1/',
-    label: 'Pratham_Agarwal1',
-  },
-];
+import MagneticButton from './MagneticButton';
 
 export default function Contact() {
+  const email = "prathamagarwalvikas@gmail.com";
+
   return (
-    <section id="contact" className="relative py-24 md:py-32 px-6">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-night/40 to-void pointer-events-none" />
+    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center px-6 bg-void py-32 overflow-hidden">
+      {/* Background Decorative Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02]">
+        <h2 className="text-[25vw] font-bold tracking-tighter select-none uppercase">CONNECT</h2>
+      </div>
 
-      <div className="max-w-3xl mx-auto text-center relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="text-mint font-mono text-sm tracking-[0.15em] block mb-3">
-            05 / CONTACT
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-snow mb-4 tracking-tight">
-            Get In Touch
-          </h2>
-          <div className="w-12 h-px bg-mint/30 mx-auto mb-8" />
-        </motion.div>
-
-        <motion.p
+      <div className="max-w-6xl w-full text-center relative z-10">
+        <motion.span 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-ash text-base md:text-lg mb-12 leading-relaxed"
-        >
-          I&apos;m always interested in discussing new projects, collaborations,
-          or opportunities. Feel free to reach out.
-        </motion.p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-16">
-          {socials.map((social, i) => (
-            <motion.a
-              key={social.name}
-              href={social.href}
-              target={social.name !== 'Email' ? '_blank' : undefined}
-              rel={
-                social.name !== 'Email' ? 'noopener noreferrer' : undefined
-              }
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
-              className="group flex items-center gap-4 bg-carbon border border-glass rounded-xl p-4
-                         hover:bg-gradient-to-r hover:from-mint/10 hover:to-iris/10 hover:border-mint/30 transition-all duration-300"
-              id={`contact-${social.name.toLowerCase()}`}
-            >
-              <div
-                className="w-10 h-10 rounded-lg bg-white/5 border border-glass flex items-center justify-center shrink-0
-                            group-hover:border-halo transition-all duration-300"
-              >
-                <social.icon className="text-lg text-ash group-hover:text-mint transition-colors duration-300" />
-              </div>
-              <div className="text-left min-w-0">
-                <p className="text-xs font-mono text-smoke uppercase tracking-wider">
-                  {social.name}
-                </p>
-                <p className="text-sm text-ash group-hover:text-snow transition-colors duration-200 truncate">
-                  {social.label}
-                </p>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="pt-8 border-t border-glass"
+          className="text-mint font-mono text-xs md:text-sm tracking-[0.5em] uppercase mb-12 block"
         >
-          <p className="text-smoke text-xs font-mono tracking-wider">
-            Built by Pratham Agarwal · {new Date().getFullYear()}
-          </p>
-        </motion.div>
+          Available for new opportunities // 2026
+        </motion.span>
+
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="text-6xl sm:text-8xl md:text-9xl font-bold text-snow tracking-tighter leading-none mb-20"
+        >
+          Let&apos;s build <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-mint via-iris to-glow">something.</span>
+        </motion.h2>
+
+        <div className="flex flex-col items-center gap-16">
+          <MagneticButton 
+            onClick={() => window.location.href = `mailto:${email}`}
+            className="group relative w-48 h-48 rounded-full bg-mint text-void flex items-center justify-center overflow-hidden transition-transform active:scale-95 shadow-[0_0_50px_rgba(0,240,255,0.3)]"
+          >
+            <span className="relative z-10 text-lg font-bold tracking-widest uppercase">Start Talk</span>
+            <div className="absolute inset-0 bg-snow scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full origin-center" />
+          </MagneticButton>
+        </div>
       </div>
+
+      {/* Subtle Floating Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-mint/5 rounded-full blur-[100px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-iris/5 rounded-full blur-[100px] animate-pulse [animation-delay:2s]" />
     </section>
   );
 }

@@ -1,74 +1,72 @@
 import { motion } from 'framer-motion';
 
-const skillCategories = [
+const skillsData = [
   {
-    title: 'Languages',
-    skills: ['C++', 'Java', 'Python', 'JavaScript', 'SQL'],
+    category: "LANGUAGES",
+    skills: ["C++", "Java", "Python", "JavaScript", "SQL"]
   },
   {
-    title: 'Backend',
-    skills: ['Node.js', 'Express.js', 'Django', 'REST APIs'],
+    category: "BACKEND",
+    skills: ["Node.js", "Express.js", "Django", "REST APIs"]
   },
   {
-    title: 'Frontend',
-    skills: ['React.js'],
+    category: "FRONTEND",
+    skills: ["React.js"]
   },
   {
-    title: 'Databases',
-    skills: ['MongoDB', 'MySQL'],
+    category: "DATABASES",
+    skills: ["MongoDB", "MySQL"]
   },
   {
-    title: 'AI / ML',
-    skills: ['TensorFlow', 'PyTorch', 'Computer Vision', 'NLP'],
+    category: "AI / ML",
+    skills: ["TensorFlow", "PyTorch", "Computer Vision", "NLP"]
   },
   {
-    title: 'DevOps',
-    skills: ['Docker', 'Kubernetes', 'Jenkins', 'GitHub Actions'],
+    category: "DEVOPS",
+    skills: ["Docker", "Kubernetes", "Jenkins", "GitHub Actions"]
   },
   {
-    title: 'Core',
-    skills: ['DSA', 'System Design', 'Operating Systems'],
-  },
+    category: "CORE",
+    skills: ["DSA", "System Design", "Operating Systems"]
+  }
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-24 md:py-32 px-6">
+    <section id="skills" className="relative py-32 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
         >
-          <span className="text-mint font-mono text-sm tracking-[0.15em] block mb-3">
-            04 / SKILLS
+          <span className="text-mint font-mono text-xs md:text-sm tracking-[0.5em] uppercase block mb-4">
+            04 / Skills
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-snow mb-4 tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-snow tracking-tighter">
             Skills & Technologies
           </h2>
-          <div className="w-12 h-px bg-mint/30 mb-12" />
+          <div className="w-24 h-1 bg-mint/20 mt-6" />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {skillCategories.map((category, catIndex) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
+          {skillsData.map((group, i) => (
             <motion.div
-              key={category.title}
+              key={group.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.4, delay: catIndex * 0.07 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
             >
-              <h3 className="text-sm font-mono text-mint mb-4 tracking-wider uppercase">
-                {category.title}
+              <h3 className="text-mint font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-8">
+                {group.category}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
+              <div className="flex flex-wrap gap-3">
+                {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-sm text-ash bg-carbon border border-glass px-3 py-1.5 rounded-lg
-                               hover:border-halo hover:text-snow hover:bg-steel
-                               transition-all duration-200 cursor-default"
+                    className="px-5 py-2.5 rounded-lg bg-white/[0.03] border border-glass text-ash text-sm md:text-base font-medium hover:bg-white/[0.08] hover:text-snow transition-all duration-300"
                   >
                     {skill}
                   </span>

@@ -1,118 +1,65 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Points, PointMaterial } from '@react-three/drei';
+import * as THREE from 'three';
 
-export default function StarField() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    let stars = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    const createStars = () => {
-      stars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 5000);
-      for (let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() < 0.3 ? 2 : 1,
-          baseOpacity: Math.random() * 0.35 + 0.05,
-          twinkleSpeed: Math.random() * 0.002 + 0.0008,
-          phase: Math.random() * Math.PI * 2,
-          parallax: 0.02 + Math.random() * 0.04,
-          color:
-            Math.random() < 0.65
-              ? [190, 210, 255]
-              : Math.random() < 0.5
-              ? [0, 212, 170]
-              : [140, 150, 255],
-        });
-      }
-    };
-
-    const drawGrid = () => {
-      const gridSize = 48;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.012)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([1, 3]);
-
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(Math.floor(x) + 0.5, 0);
-        ctx.lineTo(Math.floor(x) + 0.5, canvas.height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, Math.floor(y) + 0.5);
-        ctx.lineTo(canvas.width, Math.floor(y) + 0.5);
-        ctx.stroke();
-      }
-      ctx.setLineDash([]);
-    };
-
-    let lastTime = 0;
-    const animate = (time) => {
-      if (time - lastTime < 33) {
-        animationId = requestAnimationFrame(animate);
-        return;
-      }
-      lastTime = time;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGrid();
-
-      const scrollY = window.scrollY;
-
-      stars.forEach((star) => {
-        const twinkle = Math.sin(time * star.twinkleSpeed + star.phase);
-        const opacity = star.baseOpacity + twinkle * 0.15;
-        if (opacity <= 0) return;
-
-        const y =
-          ((star.y - scrollY * star.parallax) % canvas.height +
-            canvas.height) %
-          canvas.height;
-
-        const [r, g, b] = star.color;
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-        ctx.fillRect(Math.floor(star.x), Math.floor(y), star.size, star.size);
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    resize();
-    createStars();
-    animationId = requestAnimationFrame(animate);
-
-    const handleResize = () => {
-      resize();
-      createStars();
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', handleResize);
-    };
+function ParticleField() {
+  const ref = useRef();
+  
+  // Reduced to 2000 points for a cleaner, more minimalistic look (matching screenshots)
+  const points = useMemo(() => {
+    const p = new Float32Array(2000 * 3);
+    for (let i = 0; i < 2000; i++) {
+      p[i * 3] = (Math.random() - 0.5) * 15;
+      p[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      p[i * 3 + 2] = (Math.random() - 0.5) * 15;
+    }
+    return p;
   }, []);
 
+  useFrame((state, delta) => {
+    const { mouse } = state;
+    ref.current.rotation.x -= delta / 20;
+    ref.current.rotation.y -= delta / 30;
+
+    ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, mouse.x * 0.1, 0.05);
+    ref.current.position.y = THREE.MathUtils.lerp(ref.current.position.y, mouse.y * 0.1, 0.05);
+  });
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: 0,
-        background:
-          'linear-gradient(180deg, #0a0a0f 0%, #0d0f18 40%, #0a0e14 70%, #0a0a0f 100%)',
-      }}
-    />
+    <group rotation={[0, 0, Math.PI / 8]}>
+      <Points ref={ref} positions={points} stride={3} frustumCulled={false}>
+        <PointMaterial
+          transparent
+          color="#00f0ff"
+          size={0.012}
+          sizeAttenuation={true}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={0.4}
+        />
+      </Points>
+    </group>
+  );
+}
+
+export default function StarField() {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0 bg-[#020202]">
+      <Canvas camera={{ position: [0, 0, 1] }}>
+        <color attach="background" args={['#020202']} />
+        <fog attach="fog" args={['#020202', 0, 5]} />
+        <ParticleField />
+      </Canvas>
+      
+      {/* Very subtle CRT/noise overlay for texture */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.01]"
+        style={{
+          background: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
+          backgroundSize: '100% 2px, 3px 100%'
+        }}
+      />
+    </div>
   );
 }
