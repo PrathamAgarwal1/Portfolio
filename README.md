@@ -5,22 +5,24 @@ A dark, perception-themed portfolio: projects, videos with written versions, and
 ## Updating the site
 
 ### Easiest: the editor at `/admin`
-Go to `yoursite.com/admin`, log in with GitHub, and use **New project**, **New video**, **New find** or **Site settings**. Saving commits to this repo, and Vercel rebuilds the site in about a minute.
+Go to `https://prathamagarwalportfolio.vercel.app/admin/` and choose **Sign In Using Access Token**. Then use **Projects**, **Videos**, **Finds** or **Site settings**. Saving commits to this repo, and Vercel rebuilds the site in about a minute.
 
-To use the editor on your own computer, without logging in:
+The editor is [Sveltia CMS](https://github.com/sveltia/sveltia-cms), configured in [`public/admin/config.yml`](public/admin/config.yml).
 
-```bash
-npm run dev
-```
+#### One-time: create the access token
+1. On GitHub, open **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
+2. Name it (for example "Portfolio editor") and pick an expiry date.
+3. Under **Repository access**, choose **Only select repositories** and pick **Portfolio**.
+4. Under **Permissions → Repository permissions**, set **Contents** to **Read and write**.
+5. Generate it, copy it, and paste it into `/admin`. The editor remembers it in that browser.
 
-```bash
-npm run cms
-```
+When the token expires, make a new one the same way.
 
-Then open http://localhost:5173/admin/.
+#### On your own computer
+Run `npm run dev`, open http://localhost:5173/admin/ in Chrome or Edge, choose **Work with Local Repository**, and pick this folder. Changes are saved straight to the files here; commit and push them to put them online.
 
 ### By hand
-Add or edit a Markdown file:
+Add or edit a Markdown file, either on your computer or on GitHub's website:
 
 | What | Where |
 |---|---|
@@ -48,20 +50,6 @@ npm install
 npm run dev
 ```
 
-## Hosting on Vercel
+## Hosting
 
-Every push to `main` deploys automatically. [`vercel.json`](vercel.json) sets the build (including fetching new videos) and sends page URLs like `/projects/worth-it` to the app.
-
-### One-time: let `/admin` log you in with GitHub
-The login runs through two small functions in [`api/`](api).
-
-1. In GitHub, go to **Settings → Developer settings → OAuth Apps → New OAuth App**.
-   - **Homepage URL:** your site's address, for example `https://your-site.vercel.app`
-   - **Authorization callback URL:** the same address followed by `/api/callback`
-2. Create the app, then generate a **client secret**.
-3. In Vercel, open the project's **Settings → Environment Variables** and add:
-   - `GITHUB_CLIENT_ID`: the app's client ID
-   - `GITHUB_CLIENT_SECRET`: the client secret
-4. Redeploy, then open `/admin` on your site and choose **Login with GitHub**.
-
-If you move to a custom domain, update the two URLs in the GitHub OAuth app to match.
+The site is on Vercel, and every push to `main` deploys automatically. [`vercel.json`](vercel.json) sets the build (including fetching new videos) and sends page URLs like `/projects/worth-it` to the app.

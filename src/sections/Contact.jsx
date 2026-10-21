@@ -15,7 +15,7 @@ export default function Contact({ number }) {
         <h2>{contact.heading}</h2>
         {contact.text && <p className="muted">{contact.text}</p>}
         <a className="button button--accent" href={`mailto:${contact.email}`}>{contact.email}</a>
-        <span className="caption">↑ 590 nm. Your brain calls it amber.</span>
+        <span className="caption">↑ 480 nm. Your brain calls it blue.</span>
         <div className="link-row link-row--center">
           {links.map(([label, url]) => <a key={label} href={url}>{label}</a>)}
         </div>

@@ -3,5 +3,5 @@
   "buildCommand": "npm run fetch-videos && npm run build",
   "outputDirectory": "dist",
   "redirects": [{ "source": "/admin", "destination": "/admin/", "permanent": false }],
-  "rewrites": [{ "source": "/((?!api/|admin/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!admin/).*)", "destination": "/index.html" }]
 }

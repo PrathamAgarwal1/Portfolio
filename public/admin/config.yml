@@ -1,13 +1,9 @@
-# Decap CMS: the editor at /admin. Every save becomes a commit to the repo,
-# and Vercel rebuilds the site from it. Login goes through /api/auth (see
-# admin/index.html and the /api folder).
+# Sveltia CMS: the editor at /admin. Every save becomes a commit to the repo,
+# and Vercel rebuilds the site from it. Sign in with a GitHub access token.
 backend:
   name: github
   repo: PrathamAgarwal1/Portfolio
   branch: main
-
-# Lets you edit locally without logging in: run `npm run cms` next to `npm run dev`.
-local_backend: true
 
 media_folder: public/media
 public_folder: /media
