@@ -2,7 +2,12 @@
 // through /admin) is all it takes to add a project, video or find to the site.
 import YAML from 'yaml';
 import { marked } from 'marked';
+import markedKatex from 'marked-katex-extension';
 import siteRaw from '../content/site.yml?raw';
+
+// Equations in any written text: $...$ inline, $$...$$ on their own lines.
+// A typo shows the source in red instead of breaking the page.
+marked.use(markedKatex({ throwOnError: false, errorColor: '#ff8a8a' }));
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 

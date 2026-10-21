@@ -9,3 +9,13 @@ draft: true
 ---
 
 Write the long version of the video here: the extra detail, figures and sources that didn't fit on camera.
+
+## Equations look like this
+
+A leaky integrate-and-fire neuron's membrane potential $V$ follows
+
+$$
+\tau \frac{dV}{dt} = -(V - E_L) + R\,I(t)
+$$
+
+and it spikes when $V$ crosses the threshold $V_{th}$, then resets to $V_{reset}$.

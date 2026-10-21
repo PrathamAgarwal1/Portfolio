@@ -49,7 +49,7 @@ collections:
           - { name: text, label: Text, widget: text, required: false }
           - { name: link, label: Link, widget: string, required: false }
           - { name: image, label: Image, widget: image, required: false }
-      - { name: body, label: Writing, widget: markdown, required: false, hint: "Custom sections only. Shown above any entries." }
+      - { name: body, label: Writing, widget: markdown, required: false, modes: [rich_text, raw], hint: "Custom sections only. Shown above any entries. Equations: $...$ inline or $$...$$ on their own lines (Markdown mode)." }
 
   - name: projects
     label: Projects
@@ -80,7 +80,7 @@ collections:
         fields:
           - { name: label, label: Label, widget: string }
           - { name: url, label: URL, widget: string }
-      - { name: body, label: Full write-up, widget: markdown, required: false }
+      - { name: body, label: Full write-up, widget: markdown, required: false, modes: [rich_text, raw], hint: "Equations: $...$ inline or $$...$$ on their own lines. Switch to Markdown mode to type them." }
 
   - name: videos
     label: Videos
@@ -98,7 +98,12 @@ collections:
       - { name: summary, label: Summary, widget: text, required: false }
       - { name: thumbnail, label: Custom thumbnail, widget: image, required: false, hint: "Leave empty to use the YouTube thumbnail" }
       - { name: draft, label: Draft (hidden on the live site), widget: boolean, default: false }
-      - { name: body, label: Written version, widget: markdown, required: false }
+      - name: body
+        label: Written version
+        widget: markdown
+        required: false
+        modes: [raw, rich_text]
+        hint: "Equations: $E = mc^2$ inside a sentence, or $$ on its own line, the equation, then $$ again for a centred one. Write equations in Markdown mode."
 
   - name: finds
     label: Finds
@@ -115,7 +120,7 @@ collections:
       - { name: image, label: Image, widget: image, required: false }
       - { name: date, label: Date found, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { name: draft, label: Draft (hidden on the live site), widget: boolean, default: false }
-      - { name: body, label: Why it's interesting, widget: markdown, required: false }
+      - { name: body, label: Why it's interesting, widget: markdown, required: false, modes: [rich_text, raw], hint: "Equations: $...$ inline or $$...$$ on their own lines. Switch to Markdown mode to type them." }
 
   - name: settings
     label: Site settings

@@ -35,6 +35,19 @@ Add or edit a Markdown file, either on your computer or on GitHub's website:
 
 Copy an existing file to see the fields. Anything with `draft: true` shows up while developing but never on the live site.
 
+### Equations
+Any written text (video write-ups, projects, finds, custom sections) can include LaTeX, rendered with KaTeX:
+
+```
+The membrane potential follows $\tau \frac{dV}{dt} = -(V - E_L) + R I(t)$.
+
+$$
+\frac{dV}{dt} = \frac{1}{\tau}\left(-(V - E_L) + R I\right)
+$$
+```
+
+Use `$...$` inside a sentence, and `$$` on its own line before and after a centred equation. In `/admin`, type equations in **Markdown** mode (video write-ups open in it by default), because the rich-text mode can alter backslashes. A mistake in an equation shows its source in red rather than breaking the page.
+
 ### Home page sections
 Every heading on the home page is a file in `content/sections` (or **Home page sections** in `/admin`). Each one has a heading, an order number and a show/hide switch, so you can rename, reorder or hide any of them.
 
