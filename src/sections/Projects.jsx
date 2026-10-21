@@ -16,14 +16,14 @@ function Stats({ stats }) {
   );
 }
 
-export default function Projects({ number }) {
+export default function Projects({ id, section, number }) {
   const featured = projects.find((p) => p.featured);
   const rest = projects.filter((p) => p !== featured);
 
   return (
-    <section id="projects" className="section section--lit">
+    <section id={id} className="section section--lit">
       <div className="section__inner">
-        <SectionHeader number={number} title="Projects" note="Hover an image to see it in colour." />
+        <SectionHeader number={number} title={section.title} note={section.note} />
 
         {featured && (
           <article className="featured">

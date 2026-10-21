@@ -9,6 +9,48 @@ media_folder: public/media
 public_folder: /media
 
 collections:
+  - name: sections
+    label: Home page sections
+    label_singular: Section
+    folder: content/sections
+    create: true
+    slug: "{{slug}}"
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, title]
+    description: "Every heading on the home page. Add a new one, rename, reorder or hide any of them."
+    fields:
+      - { name: title, label: Heading, widget: string }
+      - name: type
+        label: Type
+        widget: select
+        default: custom
+        options: [custom, projects, videos, finds, about, contact]
+        hint: "Keep 'custom' for a new section. The others show your projects, videos, finds, about or contact."
+      - { name: order, label: Order, widget: number, value_type: int, default: 10, hint: "Lower numbers appear higher on the page" }
+      - { name: visible, label: Show on the site, widget: boolean, default: true }
+      - { name: note, label: Small note next to the heading, widget: string, required: false }
+      - { name: intro, label: Intro line, widget: text, required: false, hint: "Custom sections only" }
+      - name: layout
+        label: Layout
+        widget: select
+        default: cards
+        options: [cards, list, text]
+        hint: "Custom sections only. Cards: a grid. List: one entry per row (good for experience or reading). Text: just the writing below."
+      - name: items
+        label: Entries
+        label_singular: Entry
+        widget: list
+        required: false
+        hint: "Custom sections only"
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: label, label: Small label, widget: string, required: false, hint: "e.g. paper, internship, book" }
+          - { name: date, label: Date, widget: datetime, required: false, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+          - { name: text, label: Text, widget: text, required: false }
+          - { name: link, label: Link, widget: string, required: false }
+          - { name: image, label: Image, widget: image, required: false }
+      - { name: body, label: Writing, widget: markdown, required: false, hint: "Custom sections only. Shown above any entries." }
+
   - name: projects
     label: Projects
     label_singular: Project
@@ -86,11 +128,6 @@ collections:
           - { name: headline, label: Headline, widget: string }
           - { name: subheadline, label: Line under the headline, widget: text }
           - { name: intro, label: One-line intro, widget: text }
-          - name: sections
-            label: Home page sections (in order)
-            widget: list
-            hint: "Drag to reorder. Empty sections are skipped automatically."
-            field: { name: section, label: Section, widget: select, options: [projects, videos, finds, about, contact] }
           - name: about
             label: About
             widget: object

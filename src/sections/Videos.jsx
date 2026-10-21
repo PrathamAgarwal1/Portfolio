@@ -18,14 +18,14 @@ function Thumbnail({ video, large }) {
 
 const meta = (v) => [formatDate(v.date), v.duration].filter(Boolean).join(' · ');
 
-export default function Videos({ number }) {
+export default function Videos({ id, section, number }) {
   const [latest, ...older] = videos;
   const watchUrl = (v) => (v.youtubeId ? `https://www.youtube.com/watch?v=${v.youtubeId}` : site.links?.youtube);
 
   return (
-    <section id="videos" className="section">
+    <section id={id} className="section">
       <div className="section__inner">
-        <SectionHeader number={number} title="Videos" note="Every video comes with a written version." />
+        <SectionHeader number={number} title={section.title} note={section.note} />
 
         <article className="featured featured--video">
           <Link to={`/videos/${latest.slug}`} className="featured__media">

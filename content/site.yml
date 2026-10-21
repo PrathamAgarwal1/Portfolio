@@ -4,14 +4,8 @@ headline: Your brain has never seen light.
 subheadline: It sits in the dark, turning wavelengths into colour and signals into a world. Everything you're looking at right now is its best guess.
 intro: CS student heading into computational neuroscience. I make videos about the brain and build things with machine learning.
 
-# Which sections appear on the home page, in this order.
-# Available: projects, videos, finds, about, contact
-sections:
-  - projects
-  - videos
-  - finds
-  - about
-  - contact
+# Home page sections (their titles, order and any new ones you add) live in
+# content/sections, or at /admin → "Home page sections".
 
 about:
   lead: My brain started out in computer science, and it's still rewiring itself towards neuroscience.

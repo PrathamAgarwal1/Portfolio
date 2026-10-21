@@ -1,15 +1,15 @@
 import { site } from '../content.js';
 import SectionHeader from '../components/SectionHeader.jsx';
 
-export default function About({ number }) {
+export default function About({ id, section, number }) {
   const about = site.about ?? {};
   const study = [about.university, about.degree].filter(Boolean).join(' · ');
   const when = [about.years, about.location].filter(Boolean).join(' · ');
 
   return (
-    <section id="about" className="section section--side-lit">
+    <section id={id} className="section section--side-lit">
       <div className="section__inner">
-        <SectionHeader number={number} title="About" />
+        <SectionHeader number={number} title={section.title} note={section.note} />
         <div className="about">
           <div className="about__portrait">
             {about.portrait ? (

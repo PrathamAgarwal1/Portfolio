@@ -37,6 +37,18 @@ export const finds = loadCollection(
   import.meta.glob('../content/finds/*.md', { query: '?raw', import: 'default', eager: true }),
 ).sort(byDateDesc);
 
+// Home page sections, in order. Built-in ones (projects, videos…) say which
+// widget to use; "custom" ones carry their own items or text.
+export const sections = loadCollection(
+  import.meta.glob('../content/sections/*.md', { query: '?raw', import: 'default', eager: true }),
+)
+  .filter((s) => s.visible !== false)
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99))
+  .map((s) => ({
+    ...s,
+    items: (s.items ?? []).map((item) => ({ ...item, html: item.text ? marked.parse(item.text) : '' })),
+  }));
+
 export function videoThumbnail(video) {
   if (video.thumbnail) return video.thumbnail;
   if (video.youtubeId) return `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;

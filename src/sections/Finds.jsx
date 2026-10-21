@@ -1,11 +1,11 @@
 import { finds, formatDate } from '../content.js';
 import SectionHeader from '../components/SectionHeader.jsx';
 
-export default function Finds({ number }) {
+export default function Finds({ id, section, number }) {
   return (
-    <section id="finds" className="section section--lit">
+    <section id={id} className="section section--lit">
       <div className="section__inner">
-        <SectionHeader number={number} title="Finds" note="Things I came across and couldn't stop thinking about." />
+        <SectionHeader number={number} title={section.title} note={section.note} />
         <div className="card-grid">
           {finds.map((f) => (
             <article key={f.slug} className="card find">

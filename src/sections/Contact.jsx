@@ -1,6 +1,6 @@
 import { site } from '../content.js';
 
-export default function Contact({ number }) {
+export default function Contact({ id, section, number }) {
   const contact = site.contact ?? {};
   const links = [
     ['YouTube', site.links?.youtube],
@@ -9,9 +9,9 @@ export default function Contact({ number }) {
   ].filter(([, url]) => url);
 
   return (
-    <section id="contact" className="contact">
+    <section id={id} className="contact">
       <div className="contact__inner">
-        <span className="contact__number">{number} · Contact</span>
+        <span className="contact__number">{number} · {section.title}</span>
         <h2>{contact.heading}</h2>
         {contact.text && <p className="muted">{contact.text}</p>}
         <a className="button button--accent" href={`mailto:${contact.email}`}>{contact.email}</a>

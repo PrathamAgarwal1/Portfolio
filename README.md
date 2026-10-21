@@ -29,13 +29,21 @@ Add or edit a Markdown file, either on your computer or on GitHub's website:
 | A project | `content/projects/<name>.md` |
 | A video and its written version | `content/videos/<name>.md` |
 | Something you found interesting | `content/finds/<name>.md` |
-| Name, headline, about, links, section order | `content/site.yml` |
+| A home page section (heading, order, custom entries) | `content/sections/<name>.md` |
+| Name, headline, about, links | `content/site.yml` |
 | Images and your CV | `public/media/` (use them as `/media/file.jpg`) |
 
 Copy an existing file to see the fields. Anything with `draft: true` shows up while developing but never on the live site.
 
-### Sections are widgets
-`sections` in `content/site.yml` sets which sections appear on the home page and in what order. A section with nothing in it (no videos yet, say) is skipped automatically.
+### Home page sections
+Every heading on the home page is a file in `content/sections` (or **Home page sections** in `/admin`). Each one has a heading, an order number and a show/hide switch, so you can rename, reorder or hide any of them.
+
+To add a new heading, create a section with type **custom** and pick a layout:
+- **cards**: a grid of entries, each with an optional image, label, date, text and link
+- **list**: one entry per row, good for experience, reading or talks
+- **text**: just a piece of writing
+
+The built-in types (`projects`, `videos`, `finds`, `about`, `contact`) show the matching content. A section with nothing in it (no videos yet, say) is skipped automatically.
 
 ### Videos add themselves
 Put your channel ID (it starts with `UC`) in `youtubeChannelId` in `content/site.yml`. A daily GitHub Action ([`.github/workflows/youtube.yml`](.github/workflows/youtube.yml)) then adds new uploads to `content/videos`, and you write the written version whenever you like. Run it by hand with `npm run fetch-videos`.

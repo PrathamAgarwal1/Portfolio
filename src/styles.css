@@ -237,6 +237,16 @@ a.card:hover { border-color: rgba(232, 230, 225, 0.18); color: var(--text); }
 .card__more { margin-top: auto; padding-top: 6px; font-size: 15px; font-weight: 500; color: var(--accent); }
 
 .find__image { border-radius: 12px; aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+
+/* ---------- Custom sections ---------- */
+.section__intro { margin: -20px 0 0; max-width: 680px; font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.45; color: var(--muted); }
+.section__prose { max-width: 720px; }
+.entry-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.entry { display: flex; flex-wrap: wrap; gap: 6px 32px; padding: 26px 4px; border-bottom: 1px solid var(--line); }
+.entry__meta { flex: 0 0 200px; padding-top: 6px; }
+.entry__body { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.entry__title { font-family: var(--serif); font-size: 30px; line-height: 1.15; }
+.entry__title a:hover { color: var(--accent); }
 .find__take p { margin: 0 0 0.6em; }
 
 /* ---------- Videos ---------- */
