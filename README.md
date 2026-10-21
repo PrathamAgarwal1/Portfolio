@@ -5,7 +5,7 @@ A dark, perception-themed portfolio: projects, videos with written versions, and
 ## Updating the site
 
 ### Easiest: the editor at `/admin`
-Go to `yoursite.com/admin`, log in with GitHub, and use **New project**, **New video**, **New find** or **Site settings**. Saving commits to this repo, and the host rebuilds the site in about a minute.
+Go to `yoursite.com/admin`, log in with GitHub, and use **New project**, **New video**, **New find** or **Site settings**. Saving commits to this repo, and Vercel rebuilds the site in about a minute.
 
 To use the editor on your own computer, without logging in:
 
@@ -48,8 +48,20 @@ npm install
 npm run dev
 ```
 
-## Hosting on Netlify (one-time)
+## Hosting on Vercel
 
-1. In Netlify, choose **Add new site → Import an existing project** and pick this repository. [`netlify.toml`](netlify.toml) already has the build settings.
-2. So `/admin` can log you in with GitHub: in GitHub go to **Settings → Developer settings → OAuth Apps → New OAuth App**. Set the callback URL to `https://api.netlify.com/auth/done`.
-3. In Netlify, open **Site configuration → Access & security → OAuth**, choose **Install provider → GitHub**, and paste the app's client ID and secret.
+Every push to `main` deploys automatically. [`vercel.json`](vercel.json) sets the build (including fetching new videos) and sends page URLs like `/projects/worth-it` to the app.
+
+### One-time: let `/admin` log you in with GitHub
+The login runs through two small functions in [`api/`](api).
+
+1. In GitHub, go to **Settings → Developer settings → OAuth Apps → New OAuth App**.
+   - **Homepage URL:** your site's address, for example `https://your-site.vercel.app`
+   - **Authorization callback URL:** the same address followed by `/api/callback`
+2. Create the app, then generate a **client secret**.
+3. In Vercel, open the project's **Settings → Environment Variables** and add:
+   - `GITHUB_CLIENT_ID`: the app's client ID
+   - `GITHUB_CLIENT_SECRET`: the client secret
+4. Redeploy, then open `/admin` on your site and choose **Login with GitHub**.
+
+If you move to a custom domain, update the two URLs in the GitHub OAuth app to match.

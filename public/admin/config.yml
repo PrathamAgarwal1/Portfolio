@@ -1,5 +1,6 @@
 # Decap CMS: the editor at /admin. Every save becomes a commit to the repo,
-# and the host rebuilds the site from it.
+# and Vercel rebuilds the site from it. Login goes through /api/auth (see
+# admin/index.html and the /api folder).
 backend:
   name: github
   repo: PrathamAgarwal1/Portfolio
