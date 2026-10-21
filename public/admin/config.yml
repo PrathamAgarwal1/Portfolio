@@ -1,0 +1,124 @@
+# Decap CMS: the editor at /admin. Every save becomes a commit to the repo,
+# and the host rebuilds the site from it.
+backend:
+  name: github
+  repo: PrathamAgarwal1/Portfolio
+  branch: main
+
+# Lets you edit locally without logging in: run `npm run cms` next to `npm run dev`.
+local_backend: true
+
+media_folder: public/media
+public_folder: /media
+
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: content/projects
+    create: true
+    slug: "{{slug}}"
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: tag, label: Tag, widget: string, hint: "Small label above the title, e.g. computer vision" }
+      - { name: summary, label: Summary, widget: text, hint: "One or two sentences shown on the home page" }
+      - { name: order, label: Order, widget: number, value_type: int, default: 10, hint: "Lower numbers appear first" }
+      - { name: featured, label: Featured, widget: boolean, default: false, hint: "Show this one large at the top (only one at a time)" }
+      - { name: image, label: Image, widget: image, required: false }
+      - name: stats
+        label: Stats
+        widget: list
+        required: false
+        fields:
+          - { name: value, label: Number, widget: string }
+          - { name: label, label: What it means, widget: string }
+      - name: links
+        label: Links
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: url, label: URL, widget: string }
+      - { name: body, label: Full write-up, widget: markdown, required: false }
+
+  - name: videos
+    label: Videos
+    label_singular: Video
+    folder: content/videos
+    create: true
+    slug: "{{slug}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: youtubeId, label: YouTube video ID, widget: string, required: false, hint: "The part after watch?v= in the video's link" }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: duration, label: Length, widget: string, required: false, hint: "e.g. 12 min" }
+      - { name: summary, label: Summary, widget: text, required: false }
+      - { name: thumbnail, label: Custom thumbnail, widget: image, required: false, hint: "Leave empty to use the YouTube thumbnail" }
+      - { name: draft, label: Draft (hidden on the live site), widget: boolean, default: false }
+      - { name: body, label: Written version, widget: markdown, required: false }
+
+  - name: finds
+    label: Finds
+    label_singular: Find
+    folder: content/finds
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: kind, label: Kind, widget: select, options: [paper, video, article, image, thought, other], default: article }
+      - { name: url, label: Link, widget: string, required: false }
+      - { name: image, label: Image, widget: image, required: false }
+      - { name: date, label: Date found, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: draft, label: Draft (hidden on the live site), widget: boolean, default: false }
+      - { name: body, label: Why it's interesting, widget: markdown, required: false }
+
+  - name: settings
+    label: Site settings
+    files:
+      - name: site
+        label: Site text and sections
+        file: content/site.yml
+        fields:
+          - { name: name, label: Your name, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: subheadline, label: Line under the headline, widget: text }
+          - { name: intro, label: One-line intro, widget: text }
+          - name: sections
+            label: Home page sections (in order)
+            widget: list
+            hint: "Drag to reorder. Empty sections are skipped automatically."
+            field: { name: section, label: Section, widget: select, options: [projects, videos, finds, about, contact] }
+          - name: about
+            label: About
+            widget: object
+            fields:
+              - { name: lead, label: Opening line, widget: text }
+              - { name: bio, label: Bio, widget: text, required: false }
+              - { name: university, label: University, widget: string, required: false }
+              - { name: degree, label: Degree, widget: string, required: false }
+              - { name: years, label: Years, widget: string, required: false }
+              - { name: location, label: Location, widget: string, required: false }
+              - { name: portrait, label: Portrait, widget: image, required: false }
+              - { name: skills, label: Skills, widget: list, required: false }
+              - { name: cv, label: CV (PDF), widget: file, required: false }
+          - name: contact
+            label: Contact
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: email, label: Email, widget: string }
+          - name: links
+            label: Links
+            widget: object
+            fields:
+              - { name: youtube, label: YouTube channel URL, widget: string, required: false }
+              - { name: github, label: GitHub, widget: string, required: false }
+              - { name: linkedin, label: LinkedIn, widget: string, required: false }
+          - { name: youtubeChannelId, label: YouTube channel ID, widget: string, required: false, hint: "Starts with UC. New uploads get added to Videos automatically." }

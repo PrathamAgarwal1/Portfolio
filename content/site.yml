@@ -1,0 +1,43 @@
+# Site-wide text and settings. Edit here or at /admin → "Site settings".
+name: Pratham Agarwal
+headline: Your brain has never seen light.
+subheadline: It sits in the dark, turning wavelengths into colour and signals into a world. Everything you're looking at right now is its best guess.
+intro: CS student heading into computational neuroscience. I make videos about the brain and build things with machine learning.
+
+# Which sections appear on the home page, in this order.
+# Available: projects, videos, finds, about, contact
+sections:
+  - projects
+  - videos
+  - finds
+  - about
+  - contact
+
+about:
+  lead: My brain started out in computer science, and it's still rewiring itself towards neuroscience.
+  bio: ""
+  university: ""
+  degree: ""
+  years: ""
+  location: ""
+  portrait: ""
+  skills:
+    - C
+    - C++
+    - Python
+    - Machine learning
+  cv: ""
+
+contact:
+  heading: Send a signal.
+  text: Questions about a video, research opportunities, or just want to talk about the brain? I'd love to hear from you.
+  email: prathamagarwalvikas@gmail.com
+
+links:
+  youtube: ""
+  github: https://github.com/PrathamAgarwal1
+  linkedin: https://www.linkedin.com/in/pratham-agarwal1/
+
+# Your YouTube channel ID (starts with "UC"). When set, new uploads are added
+# to content/videos automatically by scripts/fetch-youtube.mjs.
+youtubeChannelId: ""

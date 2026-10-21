@@ -1,43 +1,47 @@
-import { motion, useScroll, useSpring } from 'framer-motion'
-import StarField from './components/StarField'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Projects from './components/Projects'
-import Experience from './components/Experience'
-import Skills from './components/Skills'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import CustomCursor from './components/CustomCursor'
+import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Nav from './components/Nav.jsx';
+import Footer from './components/Footer.jsx';
+import VisionFilters, { VISION_MODES } from './components/VisionFilters.jsx';
+import Home from './pages/Home.jsx';
+import ProjectPage from './pages/ProjectPage.jsx';
+import VideoPage from './pages/VideoPage.jsx';
+import useAttention from './hooks/useAttention.js';
 
-function App() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  return (
-    <div className="relative min-h-screen bg-[#020202] cursor-none overflow-x-hidden">
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-mint origin-left z-[100]"
-        style={{ scaleX }}
-      />
-      <CustomCursor />
-      <StarField />
-      <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Skills />
-        <Contact />
-        <Footer />
-      </div>
-    </div>
-  )
+// Scrolls to #section links (including /#projects from other pages) and to the
+// top when moving between pages.
+function ScrollManager() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView();
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+  return null;
 }
 
-export default App
+export default function App() {
+  const [vision, setVision] = useState('human');
+  const mode = VISION_MODES.find((m) => m.id === vision);
+  useAttention();
+
+  return (
+    <div className="page" style={{ filter: mode.filter }}>
+      <VisionFilters />
+      <ScrollManager />
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home vision={vision} onVisionChange={setVision} />} />
+        <Route path="/projects/:slug" element={<ProjectPage />} />
+        <Route path="/videos/:slug" element={<VideoPage />} />
+        <Route path="*" element={<Home vision={vision} onVisionChange={setVision} />} />
+      </Routes>
+      <Footer />
+    </div>
+  );
+}
